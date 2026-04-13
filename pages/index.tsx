@@ -7,12 +7,18 @@ const generateRandomNumber = (): number => {
   return Math.floor(Math.random() * 123) + 1;
 };
 
+const generateId = (): string => {
+  return Math.random().toString(36).substr(2, 9);
+};
+
+type ImageItem = { id: string; url: string };
+
 const Home: NextPage = () => {
-  const [images, setImages] = useState<string[]>([
-    `https://randomfox.ca/images/${generateRandomNumber()}.jpg`,
-    `https://randomfox.ca/images/${generateRandomNumber()}.jpg`,
-    `https://randomfox.ca/images/${generateRandomNumber()}.jpg`,
-    `https://randomfox.ca/images/${generateRandomNumber()}.jpg`,
+  const [images, setImages] = useState<Array<ImageItem>>([
+    { id: generateId(), url: `https://randomfox.ca/images/${generateRandomNumber()}.jpg` },
+    { id: generateId(), url: `https://randomfox.ca/images/${generateRandomNumber()}.jpg` },
+    { id: generateId(), url: `https://randomfox.ca/images/${generateRandomNumber()}.jpg` },
+    { id: generateId(), url: `https://randomfox.ca/images/${generateRandomNumber()}.jpg` },
   ]);
 
   return (
@@ -25,12 +31,12 @@ const Home: NextPage = () => {
 
       <main>
         <h1 className="text-3xl font-bold underline">Hola TypeScript</h1>
-        {images.map((image, index) => {
+        {images.map(({id, url}) => {
           return (
-            <div key={index} className="p-4">
+            <div key={id} className="p-4">
               <RandomFox
                 alt="Random Fox"
-                img={image}
+                img={url}
               />
             </div>
           );
