@@ -1,4 +1,5 @@
 import { useState } from "react";
+import type { MouseEventHandler } from "react";
 import type { NextPage } from "next";
 import Head from "next/head";
 import { RandomFox } from "../components/RandomFox";
@@ -14,12 +15,15 @@ const generateId = (): string => {
 type ImageItem = { id: string; url: string };
 
 const Home: NextPage = () => {
-  const [images, setImages] = useState<Array<ImageItem>>([
-    { id: generateId(), url: `https://randomfox.ca/images/${generateRandomNumber()}.jpg` },
-    { id: generateId(), url: `https://randomfox.ca/images/${generateRandomNumber()}.jpg` },
-    { id: generateId(), url: `https://randomfox.ca/images/${generateRandomNumber()}.jpg` },
-    { id: generateId(), url: `https://randomfox.ca/images/${generateRandomNumber()}.jpg` },
-  ]);
+  const [images, setImages] = useState<Array<ImageItem>>([]);
+
+  const addImage: MouseEventHandler<HTMLButtonElement> = (event) => {
+    const newImage: ImageItem = {
+      id: generateId(),
+      url: `https://randomfox.ca/images/${generateRandomNumber()}.jpg`,
+    };
+    setImages([...images, newImage]);
+  };
 
   return (
     <div>
@@ -31,13 +35,11 @@ const Home: NextPage = () => {
 
       <main>
         <h1 className="text-3xl font-bold underline">Hola TypeScript</h1>
-        {images.map(({id, url}) => {
+        <button onClick={addImage}>Agregar Imagen</button>
+        {images.map(({ id, url }) => {
           return (
             <div key={id} className="p-4">
-              <RandomFox
-                alt="Random Fox"
-                img={url}
-              />
+              <RandomFox alt="Random Fox" img={url} />
             </div>
           );
         })}
