@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { NextPage } from "next";
 import Head from "next/head";
 import { RandomFox } from "../components/RandomFox";
@@ -5,9 +6,15 @@ import { RandomFox } from "../components/RandomFox";
 const generateRandomNumber = (): number => {
   return Math.floor(Math.random() * 123) + 1;
 };
-const imgNumber: number = generateRandomNumber();
 
 const Home: NextPage = () => {
+  const [images, setImages] = useState<string[]>([
+    `https://randomfox.ca/images/${generateRandomNumber()}.jpg`,
+    `https://randomfox.ca/images/${generateRandomNumber()}.jpg`,
+    `https://randomfox.ca/images/${generateRandomNumber()}.jpg`,
+    `https://randomfox.ca/images/${generateRandomNumber()}.jpg`,
+  ]);
+
   return (
     <div>
       <Head>
@@ -18,7 +25,16 @@ const Home: NextPage = () => {
 
       <main>
         <h1 className="text-3xl font-bold underline">Hola TypeScript</h1>
-        <RandomFox alt="Random Fox" img={`https://randomfox.ca/images/${imgNumber}.jpg`} />
+        {images.map((image, index) => {
+          return (
+            <div key={index} className="p-4">
+              <RandomFox
+                alt="Random Fox"
+                img={image}
+              />
+            </div>
+          );
+        })}
       </main>
 
       <footer></footer>
