@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { MouseEventHandler } from "react";
 import type { NextPage } from "next";
 import Head from "next/head";
-import { RandomFox } from "../components/RandomFox";
+import { LazyImage } from "../components/RandomFox";
 
 const generateRandomNumber = (): number => {
   return Math.floor(Math.random() * 123) + 1;
@@ -39,7 +39,14 @@ const Home: NextPage = () => {
         {images.map(({ id, url }) => {
           return (
             <div key={id} className="p-4">
-              <RandomFox alt="Random Fox" img={url} />
+              <LazyImage
+                title="Random Fox"
+                src={url}
+                onClick={() => console.log("Heyyy")}
+                width={320}
+                height="auto"
+                className="rounded bg-gray-300"
+              />
             </div>
           );
         })}
