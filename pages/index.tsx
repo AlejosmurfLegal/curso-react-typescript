@@ -12,13 +12,11 @@ const generateId = (): string => {
   return Math.random().toString(36).substr(2, 9);
 };
 
-type ImageItem = { id: string; url: string };
-
 const Home: NextPage = () => {
-  const [images, setImages] = useState<Array<ImageItem>>([]);
+  const [images, setImages] = useState<Array<IFoxImageItem>>([]);
 
   const addImage: MouseEventHandler<HTMLButtonElement> = (event) => {
-    const newImage: ImageItem = {
+    const newImage: IFoxImageItem = {
       id: generateId(),
       url: `https://randomfox.ca/images/${generateRandomNumber()}.jpg`,
     };
