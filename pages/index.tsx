@@ -2,10 +2,11 @@ import { useState } from "react";
 import type { MouseEventHandler } from "react";
 import type { NextPage } from "next";
 import Head from "next/head";
+import { random } from "lodash";
 import { LazyImage } from "../components/RandomFox";
 
 const generateRandomNumber = (): number => {
-  return Math.floor(Math.random() * 123) + 1;
+  return random(1, 123);
 };
 
 const generateId = (): string => {
